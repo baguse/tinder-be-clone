@@ -1,0 +1,59 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+    "strict": false,
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "esnext",
+		"lib": [
+			"es6",
+		],
+		"noImplicitAny": true,
+		"moduleResolution": "node",
+		"removeComments": true,
+		"sourceMap": true,
+		"outDir": "dist",
+		"rootDir": "src",
+		"baseUrl": "./src",
+		"paths": {
+			"*": [
+				"node_modules/*",
+        "src/types/*"
+			],
+      "@models": ["models/index"],
+      "@models/*": ["models/*"],
+      "@middlewares": ["middlewares/index"],
+      "@middlewares/*": ["middlewares/*"],
+      "@interfaces": ["interfaces/index"],
+      "@interfaces/*": ["interfaces/*"],
+      "@utils": ["utils/index"],
+      "@utils/*": ["utils/*"],
+      "@controllers/*": ["controllers/*"],
+      "@controllers": ["controllers/index"],
+      "@schemas/*": ["schemas/*"],
+      "@schemas": ["schemas/index"],
+      "@types/*": ["types/*"],
+      "@types": ["types/index"],
+      "@configurations/*": ["configurations/*"],
+      "@configurations": ["configurations/index"],
+      "@app": ["app"],
+      "@constants": ["constants/index"],
+      "@constants/*": ["constants/*"],
+		},
+		"experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+		"forceConsistentCasingInFileNames": true
+	},
+	"compileOnSave": true,
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"dist",
+		"node_modules"
+	],
+	"types": [
+		"typePatches"
+	],
+}
