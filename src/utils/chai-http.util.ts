@@ -36,36 +36,31 @@ server.on("listening", () => {
   console.log("Server running on port 3001");
 });
 
-function POST(props: {
-  url: string;
-  body: Record<string, unknown>;
-  cookie?: string;
-}) {
-  const requester = chai
-    .request(app)
-    .post(props.url)
-    .set("Content-Type", "application/json");
-  if (props.cookie) requester
-    .set("Cookie", props.cookie);
+function POST(props: { url: string; body: Record<string, unknown>; cookie?: string }) {
+  const requester = chai.request(app).post(props.url).set("Content-Type", "application/json");
+  if (props.cookie) requester.set("Cookie", props.cookie);
 
   return requester.send(props.body);
 }
 
-function GET(props: {
-  url: string;
-  cookie?: string;
-}) {
-  const requester = chai
-    .request(app)
-    .get(props.url)
-    .set("Content-Type", "application/json");
-  if (props.cookie) requester
-    .set("Cookie", props.cookie);
+function GET(props: { url: string; cookie?: string }) {
+  const requester = chai.request(app).get(props.url).set("Content-Type", "application/json");
+  if (props.cookie) requester.set("Cookie", props.cookie);
 
   return requester;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function PATCH(props: { url: string; body?: Record<string, unknown>; cookie?: string; file?: any }) {
+  const requester = chai.request(app).patch(props.url).set("Content-Type", "application/json");
+  if (props.cookie) requester.set("Cookie", props.cookie);
+  if (props.file) requester.attach("file", props.file);
+
+  return requester.send(props?.body || {});
 }
 
 export default {
   POST,
   GET,
+  PATCH,
 };

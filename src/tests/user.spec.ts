@@ -258,4 +258,118 @@ describe("User", () => {
       res.body.data.isMatch.should.eq(true);
     });
   });
+
+  describe("Update Current User", () => {
+    let sandbox: SinonSandbox;
+    beforeEach(() => {
+      sandbox = createSandbox();
+    });
+
+    afterEach(() => {
+      sandbox.restore();
+    });
+    it("Error - Failed to update current user - invalid payload", async () => {
+      jsonwebtoken.verify = sandbox.stub().returns({
+        id: 1,
+        email: "bagus.andreanto@gmail.com",
+      });
+      User.findOne = sandbox.stub().resolves({
+        id: 1,
+        email: "bagus.andreanto@gmail.com",
+      });
+      const res = await chaiHttp.PATCH({
+        url: "/api/v1/users",
+        cookie: "token=validToken",
+        body: {
+          invalidField: 1,
+        },
+      });
+
+      res.should.have.status(ERROR_CODES.INVALID_PAYLOAD.httpStatus);
+      res.body.should.have.property("message").eq(ERROR_CODES.INVALID_PAYLOAD.message);
+      res.body.should.have.property("code").eq(ERROR_CODES.INVALID_PAYLOAD.errorCode);
+    });
+
+    it("Success - Update Password", async () => {
+      jsonwebtoken.verify = sandbox.stub().returns({
+        id: 1,
+        email: "bagus.andreanto@gmail.com",
+      });
+      User.findOne = sandbox.stub().resolves({
+        id: 1,
+        email: "bagus.andreanto@gmail.com",
+        location: {
+          coordinates: [112.433106, -7.146507],
+        },
+        update: () => {
+          // do nothing
+        },
+      });
+      const res = await chaiHttp.PATCH({
+        url: "/api/v1/users",
+        cookie: "token=validToken",
+        body: {
+          password: "11111",
+        },
+      });
+
+      res.should.have.status(StatusCodes.OK);
+      res.body.should.have.property("message").eq("User updated");
+    });
+
+    it("Success - Update Location", async () => {
+      jsonwebtoken.verify = sandbox.stub().returns({
+        id: 1,
+        email: "bagus.andreanto@gmail.com",
+      });
+      User.findOne = sandbox.stub().resolves({
+        id: 1,
+        email: "bagus.andreanto@gmail.com",
+        location: {
+          coordinates: [112.433106, -7.146507],
+        },
+        update: () => {
+          // do nothing
+        },
+      });
+      const res = await chaiHttp.PATCH({
+        url: "/api/v1/users",
+        cookie: "token=validToken",
+        body: {
+          locationLng: "112.433106",
+          locationLat: "-7.146507",
+        },
+      });
+
+      res.should.have.status(StatusCodes.OK);
+      res.body.should.have.property("message").eq("User updated");
+    });
+
+    it("Success - Update isPremium", async () => {
+      jsonwebtoken.verify = sandbox.stub().returns({
+        id: 1,
+        email: "bagus.andreanto@gmail.com",
+      });
+      User.findOne = sandbox.stub().resolves({
+        id: 1,
+        email: "bagus.andreanto@gmail.com",
+        location: {
+          coordinates: [112.433106, -7.146507],
+        },
+        update: () => {
+          // do nothing
+        },
+      });
+      const res = await chaiHttp.PATCH({
+        url: "/api/v1/users",
+        cookie: "token=validToken",
+        body: {
+          isPremium: "true",
+        },
+      });
+
+      res.should.have.status(StatusCodes.OK);
+      res.body.should.have.property("message").eq("User updated");
+    });
+  });
 });
