@@ -1,13 +1,9 @@
 import User from "@models/user.model";
 import { StatusCodes } from "http-status-codes";
-import { genSaltSync, hashSync } from "bcryptjs";
-import { Response, Request } from "express";
-import { throwError } from "@utils/error.util";
+import { Response } from "express";
 import { RequestWithUser } from "@interfaces/express.interface";
 import Match from "@models/match.model";
-import { fn, Op } from "sequelize";
-import { endOfDay, startOfDay } from "date-fns";
-import ERROR_CODES from "@constants/error.const";
+import { Op } from "sequelize";
 
 async function getMyMatches(req: RequestWithUser, res: Response) {
   try {

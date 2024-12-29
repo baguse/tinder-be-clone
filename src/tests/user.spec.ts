@@ -39,6 +39,11 @@ describe("User", () => {
           password: "123456",
           name: "Bagus",
           gender: "MALE",
+          age: 27,
+          location: [112.433106, -7.146507],
+          preferredRange: 5000,
+          preferredAgeMin: 20,
+          preferredAgeMax: 25,
         },
       });
 
@@ -62,6 +67,11 @@ describe("User", () => {
           password: "123456",
           name: "Bagus",
           gender: "MALE",
+          age: 27,
+          location: [112.433106, -7.146507],
+          preferredRange: 5000,
+          preferredAgeMin: 20,
+          preferredAgeMax: 25,
         },
       });
 
@@ -107,6 +117,9 @@ describe("User", () => {
       User.findOne = sandbox.stub().resolves({
         id: 1,
         email: "bagus.andreanto@gmail.com",
+        location: {
+          coordinates: [112.433106, -7.146507],
+        },
       });
       User.findAll = sandbox
         .stub()
@@ -133,6 +146,9 @@ describe("User", () => {
         email: "bagus.andreanto.premium@gmail.com",
         isPremium: true,
         gender: "MALE",
+        location: {
+          coordinates: [112.433106, -7.146507],
+        },
       });
       User.findAll = sandbox
         .stub()
